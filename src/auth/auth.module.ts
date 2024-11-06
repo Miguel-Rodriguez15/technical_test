@@ -9,6 +9,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { User } from 'src/user/entities/user.entity';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { User } from 'src/user/entities/user.entity';
       },
     }),
   ],
-  controllers: [],
+  controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
   exports: [TypeOrmModule, JwtStrategy, PassportModule, JwtModule],
 })

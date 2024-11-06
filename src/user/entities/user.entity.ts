@@ -29,13 +29,10 @@ export class User {
   @Column('boolean', { default: true })
   isActive: boolean;
 
-  @Column()
-  names: string;
-
-  @Column()
+  @Column('text')
   grade: string;
 
-  @Column()
+  @Column('text')
   classroom: string;
 
   @ManyToMany(() => Role, (role) => role.users)
