@@ -8,5 +8,6 @@ import { ValidationModule } from 'src/validation/validation.module';
   controllers: [UserController],
   providers: [UserService],
   imports: [AuthModule, ValidationModule],
+  exports: [UserService],
 })
 export class UserModule {}

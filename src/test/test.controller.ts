@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test.dto';
 import { UpdateTestDto } from './dto/update-test.dto';
@@ -7,9 +15,9 @@ import { UpdateTestDto } from './dto/update-test.dto';
 export class TestController {
   constructor(private readonly testService: TestService) {}
 
-  @Post()
-  create(@Body() createTestDto: CreateTestDto) {
-    return this.testService.create(createTestDto);
+  @Post('register/test')
+  registerTest(@Body() createTestDto: CreateTestDto) {
+    return this.testService.createTest(createTestDto);
   }
 
   @Get()
@@ -19,7 +27,7 @@ export class TestController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.testService.findOne(+id);
+    return this.testService.findOne(id);
   }
 
   @Patch(':id')
