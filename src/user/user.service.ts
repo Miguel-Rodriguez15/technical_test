@@ -59,7 +59,6 @@ export class UserService {
         return `id user not fund ${user}`;
       }
       return user;
-      throw new Error('test not found');
     } catch (error) {
       throw new Error(error);
     }
