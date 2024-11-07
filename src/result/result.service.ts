@@ -47,18 +47,35 @@ export class ResultService {
   }
 
   findAll() {
-    return `This action returns all result`;
+    return this.resultRepository.find({
+      relations: ['user', 'test', 'question'],
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} result`;
+  async findByUserAndTest(userId: string, testId: string) {
+    try {
+      const results = await this.resultRepository.find({
+        where: {
+          user: { id: userId },
+          test: { id: testId },
+        },
+        relations: ['user', 'test', 'question'],
+      });
+
+      if (!results.length) {
+        throw new Error('No results found for the given user and test IDs.');
+      }
+
+      return results;
+    } catch (error) {
+      throw new Error(`Error fetching results: ${error.message}`);
+    }
   }
 
-  update(id: number, updateResultDto: UpdateResultDto) {
-    return `This action updates a #${id} ${updateResultDto}result`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} result`;
+  findOne(id: string) {
+    return this.resultRepository.findOne({
+      where: { id },
+      relations: ['user', 'question', 'test'],
+    });
   }
 }

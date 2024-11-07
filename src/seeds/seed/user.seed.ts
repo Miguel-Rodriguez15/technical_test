@@ -24,14 +24,27 @@ export class UserSeed {
     const student = await this.roleRepository.findOne({
       where: { name: 'student' },
     });
+    const admin = await this.roleRepository.findOne({
+      where: { name: 'admin' },
+    });
 
     const users = [
+      {
+        email: 'user@gmail.com',
+        password: bcrypt.hashSync('Abc1234#', 10),
+        fullName: 'User',
+        isActive: true,
+        roles: [student],
+        document: '1',
+        grade: '1',
+        classroom: '22',
+      },
       {
         email: 'admin@gmail.com',
         password: bcrypt.hashSync('Abc1234#', 10),
         fullName: 'Admin User',
         isActive: true,
-        roles: [student],
+        roles: [admin],
         document: '1',
         grade: '1',
         classroom: '22',

@@ -40,7 +40,7 @@ export class UserService {
       delete user.password;
       return { token: this.getJwtToken({ id: user.id }) };
     } catch (error) {
-      this.validationService.handleDBrrors(error);
+      await this.validationService.handleDBrrors(error);
     }
   }
 
@@ -50,7 +50,7 @@ export class UserService {
   }
 
   findAll() {
-    return `This action returns all user`;
+    return this.userRepository.find();
   }
 
   async findOne(id: string) {
@@ -66,11 +66,32 @@ export class UserService {
     }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async findTestsByUserId(userId: string) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['results', 'results.test'],
+    });
+
+    if (!user) {
+      throw new Error(`User with ID ${userId} not found.`);
+    }
+
+    // Usar un Set para almacenar los IDs de los tests únicos
+    const uniqueTestIds = new Set<string>();
+
+    // Recorrer los resultados y agregar los IDs de los tests al Set
+    user.results.forEach((result) => {
+      if (result.test) {
+        uniqueTestIds.add(result.test.id);
+      }
+    });
+
+    // Obtener los tests únicos a partir de los IDs almacenados en el Set
+    const uniqueTests = Array.from(uniqueTestIds).map(
+      (testId) => user.results.find((result) => result.test.id === testId).test,
+    );
+
+    return uniqueTests;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
 }

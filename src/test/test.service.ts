@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTestDto } from './dto/create-test.dto';
-import { UpdateTestDto } from './dto/update-test.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Test } from '@nestjs/testing';
 import { Repository } from 'typeorm';
@@ -17,7 +16,7 @@ export class TestService {
   }
 
   findAll() {
-    return `This action returns all test`;
+    return this.testRepository.find();
   }
 
   async findOne(id: string) {
@@ -31,13 +30,5 @@ export class TestService {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  update(id: number, updateTestDto: UpdateTestDto) {
-    return `This action updates a #${id} test`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} test`;
   }
 }

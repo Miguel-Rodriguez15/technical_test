@@ -17,7 +17,7 @@ export class RoleSeed {
     await this.dataSource.query('TRUNCATE TABLE roles');
     await this.dataSource.query('SET FOREIGN_KEY_CHECKS = 1');
 
-    const roles = [{ name: 'student' }];
+    const roles = [{ name: 'admin' }, { name: 'student' }];
 
     await this.roleRepository.save(roles);
 
