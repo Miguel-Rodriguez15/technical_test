@@ -10,6 +10,8 @@ import { QuestionModule } from './question/question.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { ValidationModule } from './validation/validation.module';
+import { SeedsModule } from './seeds/seeds.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { AuthModule } from './auth/auth.module';
     TestModule,
     QuestionModule,
     AuthModule,
+    SeedsModule,
+    ValidationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

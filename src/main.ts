@@ -7,9 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
-    .setTitle('Api Addresses')
+    .setTitle('Api students')
     .setVersion('1.0')
-    .addTag('addresses')
     .build();
   app.enableCors({
     origin: [process.env.ORIGIN_CORS],
