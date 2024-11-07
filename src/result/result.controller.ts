@@ -2,11 +2,13 @@ import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { ResultService } from './result.service';
 import { CreateResultDto } from './dto/create-result.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorater';
 
 @Controller('result')
 export class ResultController {
   constructor(private readonly resultService: ResultService) {}
 
+  @Auth()
   @Post('register')
   @ApiOperation({ summary: 'Create a new  result' })
   @ApiResponse({
@@ -18,6 +20,7 @@ export class ResultController {
     return this.resultService.create(createResultDto);
   }
 
+  @Auth()
   @Get()
   @ApiOperation({ summary: 'Search all result' })
   @ApiResponse({
@@ -28,6 +31,7 @@ export class ResultController {
     return this.resultService.findAll();
   }
 
+  @Auth()
   @Get('searchAResult/:id')
   @ApiOperation({ summary: 'Search a result' })
   @ApiResponse({
@@ -38,6 +42,7 @@ export class ResultController {
     return this.resultService.findOne(id);
   }
 
+  @Auth()
   @Get('/search')
   @ApiOperation({ summary: 'Search result from a user and a test' })
   @ApiResponse({

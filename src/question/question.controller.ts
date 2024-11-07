@@ -2,11 +2,13 @@ import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorater';
 
 @Controller('question')
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
 
+  @Auth()
   @Post('register/question')
   @ApiOperation({ summary: 'Create a new  question' })
   @ApiResponse({
@@ -18,6 +20,7 @@ export class QuestionController {
     return this.questionService.createQuestion(createQuestionDto);
   }
 
+  @Auth()
   @Get(':id')
   @ApiOperation({ summary: 'Search a question' })
   @ApiResponse({
@@ -28,6 +31,7 @@ export class QuestionController {
     return this.questionService.findOne(id);
   }
 
+  @Auth()
   @Get('test/:testId')
   @ApiOperation({ summary: 'Search a question' })
   @ApiResponse({
