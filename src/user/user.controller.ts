@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorater';
 
 @Controller('user')
 export class UserController {
@@ -18,6 +19,7 @@ export class UserController {
     return this.userService.createUser(createUserDto);
   }
 
+  @Auth()
   @Get()
   @ApiOperation({ summary: 'Search all students' })
   @ApiResponse({
@@ -27,7 +29,7 @@ export class UserController {
   findAll() {
     return this.userService.findAll();
   }
-
+  @Auth()
   @Get(':id')
   @ApiOperation({ summary: 'Find a student' })
   @ApiResponse({
@@ -38,6 +40,7 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
+  @Auth()
   @Get('found/:id/tests')
   @ApiOperation({ summary: 'Search test for a user' })
   @ApiResponse({

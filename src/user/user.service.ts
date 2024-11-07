@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -76,22 +75,18 @@ export class UserService {
       throw new Error(`User with ID ${userId} not found.`);
     }
 
-    // Usar un Set para almacenar los IDs de los tests únicos
     const uniqueTestIds = new Set<string>();
 
-    // Recorrer los resultados y agregar los IDs de los tests al Set
     user.results.forEach((result) => {
       if (result.test) {
         uniqueTestIds.add(result.test.id);
       }
     });
 
-    // Obtener los tests únicos a partir de los IDs almacenados en el Set
     const uniqueTests = Array.from(uniqueTestIds).map(
       (testId) => user.results.find((result) => result.test.id === testId).test,
     );
 
     return uniqueTests;
   }
-
 }
